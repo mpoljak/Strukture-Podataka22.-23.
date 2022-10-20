@@ -11,8 +11,9 @@ typedef struct studenti {
 
 int main()
 {
+	char buffer[150];
 	char ch;
-	int br = 0, i = 0;
+	int count = 0, i = 0;
 	FILE* fp;
 	stud* student;
 	double rel_br_bod[100];
@@ -25,27 +26,28 @@ int main()
 		return FILE_DIDNT_OPEN_ERROR;
 	}
 
-	while (!feof(fp)) {
-
-		ch = fgetc(fp);
-		if (ch == '\n')
-			br++;
-	}
+	while (fgets(buffer, sizeof(buffer), fp) != NULL)
+	{
+		if (strcmp(buffer, "\n") != NULL) {
+			count++;
+		}
+	
+}
 
 	rewind(fp);
 
-	printf("Broj redaka je %d\n", br);
+	printf("The number of students in the file is > %d\n", count);
 
-	student = (stud*)malloc(sizeof(stud) * br); 
+	student = (stud*)malloc(sizeof(stud) * count);
 
 	while (!feof(fp)) {
 		fscanf(fp, " %s	%s	%d", student[i].FirstName, student[i].LastName, &student[i].Points);
 		i++;
 	}
-	for (i = 0; i < br; i++)
+	for (i = 0; i < count; i++)
 		rel_br_bod[i] = ((double)student[i].Points / (double)max_br_bod) * 100;
 
-	for (i = 0; i < br; i++) {
+	for (i = 0; i < count; i++) {
 		printf("%s	%s	%d %.4lf\n", student[i].FirstName, student[i].LastName, student[i].Points, rel_br_bod[i]);
 	}
 
