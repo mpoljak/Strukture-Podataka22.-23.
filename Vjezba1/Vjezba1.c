@@ -1,48 +1,53 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define FILE_DIDNT_OPEN_ERROR (-1)
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define FILE_DIDNT_OPEN_ERROR (-1)
-#define MAX_LINE (1024)
-#define MAX_FILE_NAME (256)
+typedef struct studenti {
+	char FirstName[50];
+	char LastName[50];
+	int Points;
+} stud;
 
-typedef struct _studenti {
-    char FirstName;
-    char LastName;
-    int Points;
-};
+int main()
+{
+	char ch;
+	int br = 0, i = 0;
+	FILE* fp;
+	stud* student;
+	double rel_br_bod[100];
+	int max_br_bod = 100;
 
-int countStudentsFromFile(char* filename);
 
-int main(void) {
-    char filename[MAX_FILE_NAME] = { 0 };
-    printf("Insert filename > ");
-    scanf(" %s", &filename);
+	fp = fopen("listofstudents.txt", "r");
+	if (fp == NULL) {
+		printf("Dear coustomer,the file didn't open! \n");
+		return FILE_DIDNT_OPEN_ERROR;
+	}
 
-    int studentsNumber = countStudentsFromFile(filename);
+	while (!feof(fp)) {
 
-    printf("\nBroj studenata u datoteci %s je %d \n", &filename, studentsNumber);
-    return 0;
+		ch = fgetc(fp);
+		if (ch == '\n')
+			br++;
+	}
 
-}
+	rewind(fp);
 
-int countStudentsFromFile(char* filename) {
-    FILE* fp = NULL;
-    int count = 0;
-    char buffer[MAX_FILE_NAME];
+	printf("Broj redaka je %d\n", br);
 
-    fp = fopen(filename, "r");
-    if (fp == NULL) {
-        printf("Dear coustomer,the file %s didn't open! \r\n", filename);
-        return FILE_DIDNT_OPEN_ERROR;
-    }
-    while (fgets(buffer, sizeof(buffer), fp) != NULL)
-    {
-        if (strcmp(buffer, "\n" ) != 0) {
-            count++;
-        }
-    }
-    fclose(fp);
-    return count;
+	student = (stud*)malloc(sizeof(stud) * br); 
+
+	while (!feof(fp)) {
+		fscanf(fp, " %s	%s	%d", student[i].FirstName, student[i].LastName, &student[i].Points);
+		i++;
+	}
+	for (i = 0; i < br; i++)
+		rel_br_bod[i] = ((double)student[i].Points / (double)max_br_bod) * 100;
+
+	for (i = 0; i < br; i++) {
+		printf("%s	%s	%d %.4lf\n", student[i].FirstName, student[i].LastName, student[i].Points, rel_br_bod[i]);
+	}
+
+	fclose(fp);
 }
