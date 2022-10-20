@@ -1,0 +1,15 @@
+Albert Einstein 56
+Isaac Newton  25
+Stephen Hawking 85
+
+Marie Curie 71
+Galileo Galilei 14
+
+Charles Darwin 67
+Nikola Kopernik 44
+Louis Pasteur 22
+
+Alexander Fleming 62
+Gregor Mendel 38
+Arhimed iz Sirakuze 91
+Leonardo da Vinci 32
