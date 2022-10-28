@@ -158,6 +158,8 @@ int findLastName(Position p)
 		printf("The person's address is: %p\n", p);
 	return SUCCESS;
 }
+
+
 Position findPrev(Position p)
 {
 	char last[MAX_NAME];
@@ -176,10 +178,9 @@ Position findPrev(Position p)
 		printf("\nThe element does not exist in the list!\n");
 		return NULL;
 	}
-
 	return prev;
-
 }
+
 
 int delete(Position p)
 {
@@ -196,6 +197,5 @@ int delete(Position p)
 		prev->next = p->next;
 		free(p);
 	}
-
 	return SUCCESS;
 }
