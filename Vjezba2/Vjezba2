@@ -86,9 +86,9 @@ int main()
 	return SUCCESS;
 }
 
+
 int create(Position q)
 {
-
 	printf("Write the name of the student: ");
 	scanf(" %s", q->firstName);
 	printf("Write the student's last name: ");
@@ -100,12 +100,11 @@ int create(Position q)
 	return SUCCESS;
 }
 
+
 int insertBegin(Position p)
 {
 	Position q = NULL;
-
 	q = (Position)malloc(sizeof(person));
-
 	create(q);
 
 	q->next = p->next;
@@ -115,32 +114,29 @@ int insertBegin(Position p)
 }
 
 
-
-
 int insertEnd(Position p)
 {
 	while (p->next != NULL)
 	{
 		p = p->next;
 	}
-
-	insertBegin(p);
+  
+     insertBegin(p);
 
 	return SUCCESS;
 }
 
+
 int prints(Position p)
 {
-
-	printf("\n");
+    printf("\n");
 
 	while (p != NULL)
 	{
 		printf("%s %s, %d (adresa: %d) ::: ", p->firstName, p->lastName, p->birthYear, p);
 		p = p->next;
 	}
-
-	printf("\n------\n");
+    printf("\n------\n");
 
 	return SUCCESS;
 }
@@ -185,9 +181,7 @@ Position findPrev(Position p)
 
 }
 
-
 int delete(Position p)
-
 {
 	Position prev = NULL;
 	char last[MAX_NAME];
