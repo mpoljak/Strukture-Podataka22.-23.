@@ -1,28 +1,207 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #define MAX_NAME (1024)
 #define ERROR (-1)
-#define EXIT_SUCCESS (0)
+#define SUCCESS (0)
 
 #include <stdio.h>
 #include <stdlib.h>
 #include  <string.h>
 
 struct _person;
-typedef struct _person *Position;
+typedef struct _person* Position;
 typedef struct _person {
 	char firstName[MAX_NAME];
 	char lastName[MAX_NAME];
 	int birthYear;
 	Position next;
-} Person;
+} person;
 
-int main(int argc, char** argv) {
-	Person head = {
-		.firstName = {0},
-		.lastName = {0},
-		.birthYear = 0,
-		.next = NULL
+int create(Position p);
+int insertBegin(Position p);
+int prints(Position p);
+int insertEnd(Position p);
+int delete(Position p);
+int findLastName(Position p);
+Position findPrev(Position p);
 
-	};
-	return EXIT_SUCCESS;
+
+
+int main()
+{
+	person Head;
+	Head.next = NULL;
+	int x = 1;
+	char c;
+	Position q = NULL;
+	q = (Position)malloc(sizeof(person));
+	if (q == NULL)
+	{
+		printf("Memory allocation error!\n");
+		return ERROR;
 	}
+
+	while (x)
+	{
+		printf("MENU:\n");
+		printf("\nIf you want to add a person at the beginning, write a.\n");
+		printf("If you want to add a person at the end, write b.\n");
+		printf("If you want to find a person in the list, write c.\n");
+		printf("If you want to delete a person from the list, write d.\n");
+		printf("If you want to print the list, write e.\n");
+		printf("If you want to exit the program, write f.\n\n");
+
+
+		scanf(" %c", &c);
+
+		switch (c)
+		{
+
+		case 'a':
+			insertBegin(&Head);
+			break;
+
+		case 'b':
+			insertEnd(&Head);
+			break;
+
+		case 'c':
+			findLastName(Head.next);
+			break;
+
+		case 'd':
+			delete(&Head);
+			break;
+
+		case 'e':
+			prints(Head.next);
+			break;
+
+		case 'f':
+			x = 0;
+			break;
+		}
+
+	}
+
+	return SUCCESS;
+}
+
+int create(Position q)
+{
+
+	printf("Write the name of the student: ");
+	scanf(" %s", q->firstName);
+	printf("Write the student's last name: ");
+	scanf(" %s", q->lastName);
+	printf("write the student's year of birth: ");
+	scanf("%d", &q->birthYear);
+	printf("\n----\n");
+
+	return SUCCESS;
+}
+
+int insertBegin(Position p)
+{
+	Position q = NULL;
+
+	q = (Position)malloc(sizeof(person));
+
+	create(q);
+
+	q->next = p->next;
+	p->next = q;
+
+	return SUCCESS;
+}
+
+
+
+
+int insertEnd(Position p)
+{
+	while (p->next != NULL)
+	{
+		p = p->next;
+	}
+
+	insertBegin(p);
+
+	return SUCCESS;
+}
+
+int prints(Position p)
+{
+
+	printf("\n");
+
+	while (p != NULL)
+	{
+		printf("%s %s, %d (adresa: %d) ::: ", p->firstName, p->lastName, p->birthYear, p);
+		p = p->next;
+	}
+
+	printf("\n------\n");
+
+	return SUCCESS;
+}
+
+
+int findLastName(Position p)
+{
+	char last[MAX_NAME]; 
+	printf("write the last name of the person you want to find:\n");
+	scanf(" %s ", &last);
+	while (p != NULL && strcmp(last, p->lastName)!=0)
+	{
+		p = p->next;
+	}
+
+	if (p == NULL)
+		printf("\nThe element does not exist in the list!\n");
+	else
+		printf("The person's address is: %p\n", p);
+	return SUCCESS;
+}
+Position findPrev(Position p)
+{
+	char last[MAX_NAME];
+	Position prev = NULL;
+	prev = p;
+	p = p->next;
+
+	while (p != NULL && strcmp(last, p->lastName))
+	{
+		prev = p;
+		p = p->next;
+	}
+
+	if (p == NULL)
+	{
+		printf("\nThe element does not exist in the list!\n");
+		return NULL;
+	}
+
+	return prev;
+
+}
+
+
+int delete(Position p)
+
+{
+	Position prev = NULL;
+	char last[MAX_NAME];
+	printf("Write the last name of the person you want to delete:\n");
+	scanf(" %s ", &last);
+    prev = findPrev(p, last);
+
+	if (prev != NULL)
+	{
+		printf("\n The student is deleted: %s\n", last);
+		p = prev->next;
+		prev->next = p->next;
+		free(p);
+	}
+
+	return SUCCESS;
+}
