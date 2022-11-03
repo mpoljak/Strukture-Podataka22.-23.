@@ -57,27 +57,36 @@ int main()
 		{
 
 		case 'a':
+		case 'A':
 			insertBegin(&Head);
 			break;
 
 		case 'b':
+		case 'B':
 			insertEnd(&Head);
 			break;
 
 		case 'c':
+		case 'C':
 			findLastName(Head.next);
 			break;
 
 		case 'd':
+		case 'D':
 			delete(&Head);
 			break;
 
 		case 'e':
+		case 'E':
 			prints(Head.next);
 			break;
 
 		case 'f':
-			x = 0;
+		case 'F':
+			exit (0);
+
+			default:
+          printf("Selection error!\n");
 			break;
 		}
 
@@ -86,9 +95,9 @@ int main()
 	return SUCCESS;
 }
 
-
 int create(Position q)
 {
+
 	printf("Write the name of the student: ");
 	scanf(" %s", q->firstName);
 	printf("Write the student's last name: ");
@@ -100,11 +109,12 @@ int create(Position q)
 	return SUCCESS;
 }
 
-
 int insertBegin(Position p)
 {
 	Position q = NULL;
+
 	q = (Position)malloc(sizeof(person));
+
 	create(q);
 
 	q->next = p->next;
@@ -114,29 +124,32 @@ int insertBegin(Position p)
 }
 
 
+
+
 int insertEnd(Position p)
 {
 	while (p->next != NULL)
 	{
 		p = p->next;
 	}
-  
-     insertBegin(p);
+
+	insertBegin(p);
 
 	return SUCCESS;
 }
 
-
 int prints(Position p)
 {
-    printf("\n");
+
+	printf("\n");
 
 	while (p != NULL)
 	{
 		printf("%s %s, %d (adresa: %d) ::: ", p->firstName, p->lastName, p->birthYear, p);
 		p = p->next;
 	}
-    printf("\n------\n");
+
+	printf("\n------\n");
 
 	return SUCCESS;
 }
@@ -144,30 +157,32 @@ int prints(Position p)
 
 int findLastName(Position p)
 {
-	char last[MAX_NAME]; 
+	char last[MAX_NAME];
 	printf("write the last name of the person you want to find:\n");
-	scanf(" %s ", &last);
-	while (p != NULL && strcmp(last, p->lastName)!=0)
+	scanf("%s", &last);
+	while (p != NULL && strcmp(p->lastName, last))
 	{
 		p = p->next;
 	}
 
 	if (p == NULL)
+	{
 		printf("\nThe element does not exist in the list!\n");
+	}
 	else
-		printf("The person's address is: %p\n", p);
+	{
+		printf("\n%s %s %d\n", p->firstName, p->lastName, p->birthYear);
+		printf("\n");
+	};
 	return SUCCESS;
 }
-
-
-Position findPrev(Position p)
+Position findPrev(Position p, char *last)
 {
-	char last[MAX_NAME];
 	Position prev = NULL;
 	prev = p;
 	p = p->next;
 
-	while (p != NULL && strcmp(last, p->lastName))
+	while (p != NULL && strcmp(p->lastName, last))
 	{
 		prev = p;
 		p = p->next;
@@ -183,19 +198,21 @@ Position findPrev(Position p)
 
 
 int delete(Position p)
+
 {
 	Position prev = NULL;
 	char last[MAX_NAME];
 	printf("Write the last name of the person you want to delete:\n");
-	scanf(" %s ", &last);
-    prev = findPrev(p, last);
+	scanf("%s", &last);
+	prev = findPrev(p, last);
 
-	if (prev != NULL)
+	if (prev != NULL) 
 	{
-		printf("\n The student is deleted: %s\n", last);
 		p = prev->next;
 		prev->next = p->next;
 		free(p);
+		printf("\n The student is deleted: %s\n", last);
 	}
+
 	return SUCCESS;
 }
