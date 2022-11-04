@@ -52,7 +52,7 @@ int main()
 	Head.next = NULL;
 	int a = 1;
 	char c;
-	char prez[MAX_NAME] = { 0 }, dat1[MAX_NAME] = "write.txt", dat2[MAX_NAME] = "read.txt";
+	char last[MAX_NAME] = { 0 }
 	Position q = NULL;
 	q = (Position)malloc(sizeof(person));
 	if (q == NULL)
