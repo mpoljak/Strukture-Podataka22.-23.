@@ -29,3 +29,4 @@ prezime, apsolutni i relativni broj bodova.
           D. upisuje listu u datoteku,
 
           E. čita listu iz datoteke.
+4. Napisati program za zbrajanje i množenje polinoma. Koeficijenti i eksponenti se čitaju iz datoteke.
