@@ -9,8 +9,8 @@ int inputFirst(Position p)
 	fp = fopen("Polynomial1.txt", "r");
 	if (fp == NULL)
 	{
-		printf("Memory allocation error!\n");
-		return ALLOCATION_ERROR;
+		printf("Failed to open file!\n");
+		return FAILED;
 	}
 	while (!feof(fp))
 	{
@@ -44,8 +44,8 @@ int inputSecond(Position p)
 	fp = fopen("Polynomial2.txt", "r");
 	if (fp == NULL)
 	{
-		printf("Memory allocation error!\n");
-		return ALLOCATION_ERROR;
+		printf("Failed to open file!\n");
+		return FAILED;
 	}
 	while (!feof(fp))
 	{
