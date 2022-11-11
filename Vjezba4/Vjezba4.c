@@ -3,6 +3,7 @@
 #define ALLOCATION_ERROR (-1)
 #define EMPTYLIST (-2)
 #define SUCCESS (0)
+#define FAILED (1)
 
 #include <stdio.h>
 #include <stdlib.h>
