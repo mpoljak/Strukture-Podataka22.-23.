@@ -42,3 +42,8 @@ naziv, količina, cijena. Potrebno je formirati vezanu listu računa sortiranu p
 vezane liste sadržava vezanu listu artikala sortiranu po nazivu artikla. Nakon toga potrebno je
 omogućiti upit kojim će korisnik saznati koliko je novaca sveukupno potrošeno na specifični
 artikl u određenom vremenskom razdoblju i u kojoj je količini isti kupljen.
+
+7. Napisati program koji pomoću vezanih listi (stabala) predstavlja strukturu direktorija.
+Omogućiti unos novih direktorija i pod-direktorija, ispis sadržaja direktorija i
+povratak u prethodni direktorij. Točnije program treba preko menija simulirati
+korištenje DOS naredbi: 1- "md", 2 - "cd dir", 3 - "cd..", 4 - "dir" i 5 – izlaz.
