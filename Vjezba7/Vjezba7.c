@@ -29,18 +29,18 @@ typedef struct Directory {
 
 typedef struct stack *StackPosition;
 typedef struct stack {
-	StackPosition Dir;
+	DirPosition Dir;
 	StackPosition next;
-}stack;
+}Stack;
 
 	DirPosition md(DirPosition, DirPosition);
 	int dir(DirPosition);
-	StackPosition MakeStack();
+	StackPosition MakeStack(DirPosition);
 	DirPosition MakeDirectory ();
 	void Remove (DirPosition);
 	DirPosition ChangeDirectory(StackPosition, DirPosition);
 	int PushStack(StackPosition, DirPosition);
-	StackPosition PopStack(StackPosition);
+	DirPosition PopStack(StackPosition);
 	StackPosition AllocateMemoryForStack();
 
 	int main()
@@ -56,8 +56,8 @@ typedef struct stack {
 		white();
 		printf("\n     Your tree is empty and you need to write the name of directory\n");
 		red();
-		stack = MakeStack();
 		Dir = MakeDirectory();
+		stack = MakeStack(Dir);
 		current = Dir;
 		
 
@@ -79,7 +79,7 @@ typedef struct stack {
 			red();
 			printf("\n             *     PRESS 3:");
 			white();
-			printf(" CD                                      *");
+			printf(" CD..                                    *");
 			red();
 			printf("\n             *     PRESS 4:");
 			white();
@@ -101,7 +101,7 @@ typedef struct stack {
 				current = element;
 				break;
 			case '3':
-				element = PopStack(current, stack);
+				element = PopStack(stack);
 				if (!element)
 					printf("It cannot go higher than root!");
 				else
@@ -122,15 +122,16 @@ typedef struct stack {
 		}
 		return 0;
 	}
-	StackPosition MakeStack()
+	StackPosition MakeStack(DirPosition root)
 	{
 		StackPosition newStackElement = NULL;
-		newStackElement = (StackPosition)malloc(sizeof(stack));
+		newStackElement = (StackPosition)malloc(sizeof(Stack));
 		if (newStackElement == NULL)
 		{
 			printf("Can not allocate memory!\n");
 			return NULL;
 		}
+		newStackElement->Dir = root;
 		newStackElement->next = NULL;
 
 		return newStackElement;
@@ -226,29 +227,46 @@ typedef struct stack {
 	}
 	int PushStack(StackPosition stack, DirPosition current)
 	{
-		StackPosition q = NULL;
-		q = MakeStack();
-		q->Dir = current;
-		q->next = stack->next;
-		stack->next = q;
+		StackPosition temp = NULL;
+		StackPosition p = NULL;
+		p = (StackPosition)malloc(sizeof(Stack));
+		if (stack->next == NULL) {
+			p->Dir = current->child;
+			p->next = NULL;
+			stack->next = p;
+		}
+		else {
+			temp = stack->next;
+			while (temp->next != NULL) {
+				temp = temp->next;
+			}
+			p->Dir = current;
+			p->next = NULL;
+			temp->next = p;
+		}
+
 		return 0;
 	}
 
-	StackPosition PopStack(DirPosition current, StackPosition stackHead)
+	DirPosition PopStack(StackPosition stack)
 	{
-		StackPosition newStackElement;
-		StackPosition tempStackElement = stackHead;
-		if (newStackElement = AllocateMemoryForStack())
-		{
-			while (tempStackElement->next)
-				tempStackElement = tempStackElement->next;
-			newStackElement->next = tempStackElement->next;
-			tempStackElement->next = newStackElement;
-			newStackElement->Dir = current;
-			return 0;
+		StackPosition temp = NULL;
+		temp = (StackPosition)malloc(sizeof(Stack));
+		DirPosition dir = NULL;
+		dir = (DirPosition)malloc(sizeof(Directory));
+
+		if (stack == NULL || stack->next == NULL)
+			return NULL;
+
+		temp = stack->next;
+		while (temp->next != NULL) {
+			temp = temp->next;
 		}
-		else
-			return 1;
+
+		dir->child = temp->Dir;
+
+		free(temp);
+		return dir;
 	}
 
 	StackPosition AllocateMemoryForStack()
@@ -260,3 +278,6 @@ typedef struct stack {
 		}
 		return newStackElement;
 	}
+
+	
+	
