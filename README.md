@@ -47,3 +47,7 @@ artikl u određenom vremenskom razdoblju i u kojoj je količini isti kupljen.
 Omogućiti unos novih direktorija i pod-direktorija, ispis sadržaja direktorija i
 povratak u prethodni direktorij. Točnije program treba preko menija simulirati
 korištenje DOS naredbi: 1- "md", 2 - "cd dir", 3 - "cd..", 4 - "dir" i 5 – izlaz.
+
+8. Napisati program koji omogućava rad s binarnim stablom pretraživanja. Treba
+omogućiti unošenje novog elementa u stablo, ispis elemenata (inorder, preorder, postorder i
+level order), brisanje i pronalaženje nekog elementa.
