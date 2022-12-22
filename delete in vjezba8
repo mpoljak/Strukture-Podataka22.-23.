@@ -1,0 +1,43 @@
+Position DeleteElement(int element, Position Root)
+{
+	Position temp;
+	if (Root == NULL)
+	{
+		return NULL;
+	}
+
+	if (Root->data < element)
+	{
+		Root->right = DeleteElement(Root->right, element);
+
+	}
+
+	else if (Root->data > element)
+	{
+		Root->left = DeleteElement(Root->left, element);
+	}
+
+	else
+	{
+		if (Root->left == NULL)
+		{
+			temp = FindMax(Root->left);
+			Root->data = temp->data;
+			Root->left = DeleteElement(Root->left, temp->data);
+		}
+		else if (Root->right == NULL)
+		{
+			temp = FindMin(Root->right);
+			Root->data = temp->data;
+			Root->right = DeleteElement(Root->right, temp->data);
+		}
+		else
+		{
+			free(Root);
+			return NULL;
+		}
+	}
+
+
+	return Root;
+}
